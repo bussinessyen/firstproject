@@ -1,25 +1,56 @@
+# Node modules
+node_modules/
+.cache/
+dist/
+build/
+out/
+
 # Logs
-logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Dependency directories
 .env
+.env.*.local
+.env.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Hardhat artifacts
+artifacts/
+cache/
+typechain/
+typechain-types/
+
+# VSCode settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+
+# IDE files
+.idea/
+*.iml
+
+# Optional npm files
+package-lock.json
+
+# Misc
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.tgz
+
+# Svelte or Vite cache (based on 'svite-env.d.ts' presence)
+.svelte-kit/
+.svite/
+
+# Generated files
+*.generated.ts

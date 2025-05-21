@@ -1,3 +1,5 @@
+// types/index.ts
+
 export enum JobStatus {
   OPEN = 'OPEN',
   AWAITING_PAYMENT = 'AWAITING_PAYMENT',
@@ -7,6 +9,19 @@ export enum JobStatus {
   COMPLETE = 'COMPLETE',
   DISPUTED = 'DISPUTED',
   RESOLVED = 'RESOLVED',
+}
+
+export enum BidStatus {
+  PENDING = 'PENDING',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
+}
+
+export enum ContractStateEnum {
+  AWAITING_FUND = 'AWAITING_FUND',
+  AWAITING_DELIVERY = 'AWAITING_DELIVERY',
+  COMPLETE = 'COMPLETE',
+  REFUNDED = 'REFUNDED',
 }
 
 export interface User {
@@ -31,7 +46,7 @@ export interface Bid {
   amount: number;
   deliveryTime: number; // in days
   proposal: string;
-  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  status: BidStatus;
   createdAt: string;
 }
 
@@ -65,5 +80,5 @@ export interface ContractState {
   client: string;
   freelancer: string;
   amount: string;
-  state: 'AWAITING_FUND' | 'AWAITING_DELIVERY' | 'COMPLETE' | 'REFUNDED';
+  state: ContractStateEnum;
 }
