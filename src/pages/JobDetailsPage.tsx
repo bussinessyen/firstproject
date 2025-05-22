@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Clock, DollarSign, Tag, ArrowLeft, User, ExternalLink, CheckCircle, Send } from 'lucide-react';
 import { format } from 'date-fns';
 import { jobsAPI } from '../services/api';
 import { createEscrowJob, releasePayment } from '../services/blockchain';
 import { useWallet } from '../context/WalletContext';
+import { useAuth } from '../context/AuthContext';
 import Button from '../components/common/Button';
 import { JobStatus } from '../types';
 
 const JobDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { isConnected, walletAddress } = useWallet();
+  const { isAuthenticated, user } = useAuth();
   const [bidAmount, setBidAmount] = useState('');
   const [deliveryTime, setDeliveryTime] = useState('7');
   const [proposal, setProposal] = useState('');
@@ -21,6 +23,10 @@ const JobDetailsPage: React.FC = () => {
   const [workSubmission, setWorkSubmission] = useState('');
   const [isSubmittingWork, setIsSubmittingWork] = useState(false);
   
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
   const { data: job, isLoading, error, refetch } = useQuery({
     queryKey: ['job', id],
     queryFn: () => jobsAPI.getJob(id!),

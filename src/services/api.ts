@@ -63,19 +63,19 @@ export const jobsAPI = {
     const response = await api.post(`/jobs/${jobId}/select-bid`, { bidId });
     return response.data;
   },
-  
-  submitWork: async (jobId: string, content: string) => {
-    const response = await api.post(`/jobs/${jobId}/submit-work`, { content });
+
+  submitWork: async (jobId: string, workSubmission: string) => {
+    const response = await api.post(`/jobs/${jobId}/submit-work`, { workSubmission });
     return response.data;
   },
-  
-  requestRevision: async (jobId: string, feedback: string) => {
-    const response = await api.post(`/jobs/${jobId}/request-revision`, { feedback });
-    return response.data;
-  },
-  
+
   completeJob: async (jobId: string) => {
     const response = await api.post(`/jobs/${jobId}/complete`);
+    return response.data;
+  },
+
+  requestRevision: async (jobId: string, message: string) => {
+    const response = await api.post(`/jobs/${jobId}/request-revision`, { message });
     return response.data;
   },
 };

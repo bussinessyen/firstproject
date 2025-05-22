@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import Button from '../common/Button';
 import { authAPI } from '../../services/api';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 interface SignupModalProps {
   isOpen: boolean;
@@ -11,14 +11,13 @@ interface SignupModalProps {
 }
 
 const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose, onLoginClick }) => {
+  const { login } = useAuth();
   const [accountType, setAccountType] = useState<'client' | 'freelancer' | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
@@ -31,9 +30,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose, onLoginClick
 
     try {
       const data = await authAPI.register(name, email, password, accountType);
-      localStorage.setItem('token', data.token);
+      login(data.token);
       onClose();
-      navigate('/'); // Navigate to homepage after signup
     } catch (error) {
       setError('Failed to create account. Please try again.');
     } finally {

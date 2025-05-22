@@ -49,9 +49,9 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
         </p>
         
         <div className="mt-4 flex flex-wrap gap-2">
-          {job.skills.map((skill, index) => (
+          {job.skills.map((skill) => (
             <span 
-              key={index}
+              key={skill}
               className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-50 text-primary-700"
             >
               {skill}
@@ -74,21 +74,23 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
         </div>
       </div>
       
-      <div className="bg-neutral-50 px-6 py-3 flex justify-between items-center border-t border-neutral-200">
-        <div className="flex items-center">
-          <img 
-            src={job.client.profilePicture} 
-            alt={job.client.username}
-            className="h-8 w-8 rounded-full mr-2 object-cover"
-          />
-          <span className="text-sm font-medium text-neutral-900">{job.client.username}</span>
+      {job.client && (
+        <div className="bg-neutral-50 px-6 py-3 flex justify-between items-center border-t border-neutral-200">
+          <div className="flex items-center">
+            <img 
+              src={job.client.profilePicture} 
+              alt={job.client.username}
+              className="h-8 w-8 rounded-full mr-2 object-cover"
+            />
+            <span className="text-sm font-medium text-neutral-900">{job.client.username}</span>
+          </div>
+          
+          <div className="flex items-center text-sm text-neutral-500">
+            <Users className="h-4 w-4 mr-1" />
+            <span>{job.bids.length} bids</span>
+          </div>
         </div>
-        
-        <div className="flex items-center text-sm text-neutral-500">
-          <Users className="h-4 w-4 mr-1" />
-          <span>{job.bids.length} bids</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
